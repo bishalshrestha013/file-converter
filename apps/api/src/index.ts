@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import { Type } from "typebox";
 import type { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import { config } from "./config.ts";
 
 const fastify = Fastify({
   logger: true,
@@ -25,4 +26,4 @@ fastify.get(
   },
 );
 
-await fastify.listen({ port: 3000 });
+await fastify.listen({ port: config.port });
