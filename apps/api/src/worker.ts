@@ -1,5 +1,5 @@
 import { Worker } from "bullmq";
-import { connection, myQueue } from "./queue";
+import { connection, myQueue } from "./queue.ts";
 
 const worker = new Worker(
   "my-queue",

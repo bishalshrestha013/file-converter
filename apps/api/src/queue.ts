@@ -1,5 +1,5 @@
 import { Queue } from "bullmq";
-import { config } from "./config";
+import { config } from "./config.ts";
 
 const connection = {
   host: config.redis.host,
