@@ -1,8 +1,12 @@
 import Fastify from "fastify";
 import { Type } from "typebox";
 import type { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+import { createBullBoard } from "@bull-board/api";
+import { BullMQAdapter } from "@bull-board/api/bullMQAdapter";
+import { FastifyAdapter } from "@bull-board/fastify";
 import { config } from "./config.ts";
 import { myQueue } from "./queue.ts";
+import { BULL_BOARD_BASE_PATH } from "./constants.ts";
 
 const fastify = Fastify({
   logger: true,
@@ -63,5 +67,18 @@ fastify.post(
     });
   },
 );
+
+const bullBoardServerAdapter = new FastifyAdapter();
+
+createBullBoard({
+  queues: [new BullMQAdapter(myQueue)],
+  serverAdapter: bullBoardServerAdapter,
+});
+
+bullBoardServerAdapter.setBasePath(BULL_BOARD_BASE_PATH);
+
+await fastify.register(bullBoardServerAdapter.registerPlugin(), {
+  prefix: BULL_BOARD_BASE_PATH,
+});
 
 await fastify.listen({ port: config.port });

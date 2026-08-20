@@ -13,6 +13,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.28.2",
   "dependencies": {
+    "@bull-board/api": "^9.3.2",
+    "@bull-board/fastify": "^9.3.2",
     "@fastify/type-provider-typebox": "^6.1.0",
     "bullmq": "^6.1.2",
     "dotenv": "^17.4.2",
